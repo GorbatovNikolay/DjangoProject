@@ -30,13 +30,13 @@ During the initial registration the user must enter:
 
 After entering email the user receives by email a unique link to the profile page.
 
-On the profile page the user must fill in the following fields:
+On the profile page the user can fill in the following fields:
 
-* account name (default is email) - required, unique field
-* first name of the user - required field
-* last name of the user - required field
-
-After entering these data the user can optionally add a bio and avatar.
+* account name - required, unique field
+* first name of the user - optionally
+* last name of the user - optionally
+* bio - optionally
+* avatar - optionally
 
 ## 2.3. Authentication
 
