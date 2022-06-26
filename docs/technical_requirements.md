@@ -15,22 +15,21 @@ The program consists of the following functional blocks:
 
 The program provides two types of users:
 a user (he is both the author and the content consumer)
-and a guest (can only see the home page (feed), cannot like and see pictures, and visit the user's page).
+and a guest (can only see the authorization page, cannot like and see pictures, and visit the user's page).
 
 ## 2.2. Registration
 
 The user registration process begins at the login page. Here the user can register, log in as a registered user or
-continue as a guest
-(in this case there should be a registration offer with a link to the login page on the main page).
+change the forgotten password.
 
 During the initial registration the user must enter:
 
 * email - required, unique field
 * password - required field
 
-After entering email the user receives by email a unique link to the profile page.
+After entering email gets to the profile settings page.
 
-On the profile page the user can fill in the following fields:
+On that page the user can fill in the following fields:
 
 * account name - required, unique field
 * first name of the user - optionally
@@ -55,7 +54,7 @@ following blocks:
 
 In this section the user has the ability to edit their profile data - email, account name, password.
 
-It is possible to change the password by confirming the old password.
+It is possible to change the password.
 
 ### 2.4.2 Creating and editing posts
 
