@@ -22,7 +22,10 @@ class User(AbstractUser):
     )
     bio = models.TextField(
         _('biography'),
-        blank=True
+        blank=True,
+        help_text=_(
+            "Биография пользователя."
+        )
     )
     is_active = models.BooleanField(
         _("active"),
@@ -35,3 +38,6 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return f'User {self.username}'

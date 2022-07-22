@@ -7,6 +7,7 @@ from apps.user.models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    """UserAdmin with altered user model and added form fields avatar and bio."""
     model = User
     add_form = UserCreationForm
 
