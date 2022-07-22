@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Djangogramm - Add post
+{% endblock %}
+
+{% block content %}
+
+    <form method="post" enctype="multipart/form-data">
+        <h1>Создание поста</h1>
+        <h3>Добавьте описание</h3>
+        {% csrf_token %}
+        <div class="form-error">{{ post_form.non_field_errors }}</div>
+        {% for field in post_form %}
+            <p>{{ field }}</p>
+            <p>{{ field.help_text }}</p>
+            <div class="form-error">{{ field.errors }}</div>
+        {% endfor %}
+
+        <table>
+            <tr>
+                <th><h3>Загрузите фотографии</h3></th>
+                <th><h3>Добавьте теги</h3></th>
+            </tr>
+            <tr>
+                <td>{{ photo_formset.as_p }}</td>
+                <td style="vertical-align:top">{{ tag_formset.as_p }}</td>
+            </tr>
+        </table>
+        <button class="btn btn-dark btn-lg">Создать пост</button>
+    </form>
+
+{% endblock %}

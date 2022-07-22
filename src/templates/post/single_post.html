@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.creator.username }}{% endblock %}
+
+{% block content %}
+    {% include 'post/post.html' %}
+{% endblock %}

@@ -4,18 +4,24 @@ from django.urls import path
 from apps.user.views import (
     ActivateView,
     EmailInfoView,
-    HomeView,
     SignUpView,
 )
 
 app_name = 'user'
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
-    path('signup/', SignUpView.as_view(), name='sing_up'),
+    path('signup/', SignUpView.as_view(), name='signup'),
     path('signup/email/', EmailInfoView.as_view(), name='email_info'),
     path('signup/activate/<uidb64>/<token>/', ActivateView.as_view(), name='activate'),
-    path('login/',
-         auth_urls.views.LoginView.as_view(template_name='user/login.html', next_page='home'), name='login'),
+
+    path(
+        'login/',
+        auth_urls.views.LoginView.as_view(
+            template_name='user/login.html',
+            next_page='home',
+            redirect_authenticated_user=True
+        ),
+        name='login'
+    ),
     path('logout/', auth_urls.views.LogoutView.as_view(next_page='login'), name='logout'),
 
     path('password_reset/',

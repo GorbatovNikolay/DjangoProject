@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+{% load static %}
+<html dir="ltr" lang="en-US">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="SemiColonWeb"/>
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap"
+          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/dark.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/font-icons.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css"/>
+
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Document Title
+    ============================================= -->
+    <title>{% block title %}Djangogramm{% endblock %}</title>
+
+</head>
+
+<body class="stretched">
+
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+
+    <!-- Header
+    ============================================= -->
+    <header id="header" class="full-header">
+        <div id="header-wrap">
+            <div class="container">
+                <div class="header-row">
+
+                    <!-- Logo
+                    ============================================= -->
+                    <div id="logo">
+                        <a href="{% url 'home' %}" class="standard-logo"
+                           data-dark-logo="{% static 'images/logo/logo_dark.png' %}"><img
+                                src="{% static 'images/logo/logo.png' %}" alt="Logo"></a>
+                        <a href="{% url 'home' %}" class="retina-logo"
+                           data-dark-logo="{% static 'images/logo/logo_dark.png' %}"><img
+                                src="{% static 'images/logo/logo.png' %}" alt="Logo"></a>
+                    </div><!-- #logo end -->
+
+                    <div id="primary-menu-trigger">
+                        <svg class="svg-trigger" viewBox="0 0 100 100">
+                            <path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path>
+                            <path d="m 30,50 h 40"></path>
+                            <path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Primary Navigation
+                    ============================================= -->
+                    <nav class="primary-menu">
+
+                        <ul class="menu-container">
+                            <li class="menu-item">
+                                <a class="menu-link" href="{% url 'home' %}">
+                                    <div>Home</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="{% url 'create_post' %}">
+                                    <div>New post</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="{% url 'profile' user_slug=user.slug %}">
+                                    <div>Profile</div>
+                                </a>
+                                <ul class="sub-menu-container">
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="{% url 'update_user' user_slug=user.slug %}">
+                                            <div>Settings</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="{% url 'logout' %}">
+                                            <div>Logout</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% if user.is_superuser %}
+                                <li class="menu-item">
+                                    <a class="menu-link" href="{% url 'admin:index' %}">
+                                        <div>Admin page</div>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+
+                    </nav><!-- #primary-menu end -->
+
+                </div>
+            </div>
+        </div>
+        <div class="header-wrap-clone"></div>
+    </header><!-- #header end -->
+
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section><!-- #content end -->
+
+    <!-- Footer
+    ============================================= -->
+    <footer id="footer" class="dark">
+        <!-- Copyrights
+        ============================================= -->
+        <div id="copyrights">
+            <div class="container">
+
+                <div class="row justify-content-between col-mb-30">
+                    <div class="col-12 col-lg-auto text-center text-lg-left order-last order-lg-first">
+                        Copyrights &copy; 2022 Nikolay Gorbatov.
+                    </div>
+
+                    <div class="col-12 col-lg-auto text-center text-lg-right">
+                        <div class="copyrights-menu copyright-links">
+                            <a href="{% url 'home' %}">Home</a>/<a href="#">About</a>
+                        </div>
+                        <a href="https://www.facebook.com/profile.php?id=100010958559058"
+                           class="social-icon inline-block si-small si-borderless mb-0 si-facebook" title="Facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/nikolaigorbatov/"
+                           class="social-icon inline-block si-small si-borderless mb-0 si-instagram" title="Instagram">
+                            <i class="icon-instagram"></i>
+                            <i class="icon-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- #copyrights end -->
+    </footer><!-- #footer end -->
+
+</div><!-- #wrapper end -->
+
+<!-- Go To Top
+============================================= -->
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- JavaScripts
+============================================= -->
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/plugins.min.js' %}"></script>
+
+<!-- Footer Scripts
+============================================= -->
+<script src="{% static 'js/functions.js' %}"></script>
+
+</body>
+</html>
