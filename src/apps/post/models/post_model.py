@@ -44,6 +44,10 @@ class Post(models.Model):
         return f'{self.creator.username}\'s post №' \
                f'{list(self.creator.posts.values_list("id", flat=True)).index(self.id) + 1}.'
 
+    def get_liked_users(self) -> list:
+        """Returns a list of users that liked the post."""
+        return [like.user for like in self.likes.all()]
+
     class Meta:
         verbose_name = _('post')
         order_with_respect_to = 'creator'

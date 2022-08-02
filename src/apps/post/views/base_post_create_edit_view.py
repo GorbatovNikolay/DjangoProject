@@ -28,11 +28,6 @@ class BasePostCreateEditView(LoginRequiredMixin, View):
     def post(self, request, post_slug=None):
         """Renders a template with either empty or filled forms for 'POST' query,
         if forms are valid, saves them."""
-        if self.template_name is None:
-            raise AttributeError('Template name is not defined!')
-        if self.success_url is None:
-            raise AttributeError('Success url is not defined!')
-
         context = self.get_context_data(request, post_slug)
         post_form, photo_formset, tag_formset = context.values()
 
