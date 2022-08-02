@@ -46,7 +46,7 @@ class Post(models.Model):
 
     def get_liked_users(self) -> list:
         """Returns a list of users that liked the post."""
-        return [like.user for like in self.likes.all()]
+        return self.likes.values_list('user', flat=True)
 
     class Meta:
         verbose_name = _('post')

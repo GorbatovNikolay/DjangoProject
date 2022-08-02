@@ -40,7 +40,7 @@
                 <li>
                     <button type="submit" name="post_slug" value="{{ post.slug }}"
                             class="btn">
-                        {% if user not in post.get_liked_users %}
+                        {% if user.pk not in post.get_liked_users %}
                             <i class="icon-line2-like"></i>
                         {% else %}
                             <i class="icon-line2-dislike"></i>
