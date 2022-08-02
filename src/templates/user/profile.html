@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Djangogramm - {{ profile_user.username }}'s profile{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div>
+        <div>
+            {% if profile_user.avatar %}
+                <img class="img-fluid img-thumbnail mt-4 mb-2"
+                     style="z-index: 1; height: 400px; max-width: 50%; float: left; margin-right: 30px"
+                     src="{{ profile_user.avatar.url }}" alt="avatar">
+            {% elif not profile_user.avatar %}
+                <img class="img-fluid img-thumbnail mt-4 mb-2"
+                     style="z-index: 1; height: 400px; float: left; margin-right: 30px"
+                     src="{% static 'images/avatar_placeholder.jpg' %}" alt="avatar">
+            {% endif %}
+        </div>
+        <div>
+            <br>
+            <h1>Личная информация</h1>
+            <p style="font-size: 30px">{{ profile_user.username }}</p>
+            <p style="font-size: 30px"><b>Полное имя:</b> <br>{{ profile_user.first_name }} {{ profile_user.last_name }}
+            </p>
+            <p style="clear: left;">{{ profile_user.bio }}</p>
+            {% if user == profile_user %}
+                <a href="{% url 'update_user' user_slug=profile_user.slug %}">
+                    <button class="btn btn-outline-dark btn-lg btn-block">Редактировать профиль</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div style="clear: left">
+        <hr>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+            {% for post in latest %}
+                <div class="grid-inner">
+                    <div class="portfolio-image">
+                        <a href="{% url 'single_post' post_slug=post.slug %}">
+                            <img src="{{ post.photos.first.image.url }}" alt="post photo">
+                        </a>
+                        <div class="bg-overlay">
+                            <div class="bg-overlay-content dark" data-hover-animate="fadeIn">
+                                <a href="{{ post.photos.first.image.url }}"
+                                   class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall"
+                                   data-hover-animate-out="fadeOutUpSmall" data-hover-speed="350" data-lightbox="image"
+                                   title="Image"><i class="icon-line-plus"></i></a>
+                                <a href="{% url 'single_post' post_slug=post.slug %}"
+                                   class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall"
+                                   data-hover-animate-out="fadeOutUpSmall" data-hover-speed="350"><i
+                                        class="icon-line-ellipsis"></i></a>
+                            </div>
+                            <div class="bg-overlay-bg dark" data-hover-animate="fadeIn"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

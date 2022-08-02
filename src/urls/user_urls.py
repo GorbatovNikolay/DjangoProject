@@ -5,6 +5,9 @@ from apps.user.views import (
     ActivateView,
     EmailInfoView,
     SignUpView,
+    UserDeleteView,
+    UserProfileView,
+    UserUpdateView,
 )
 
 app_name = 'user'
@@ -24,13 +27,39 @@ urlpatterns = [
     ),
     path('logout/', auth_urls.views.LogoutView.as_view(next_page='login'), name='logout'),
 
-    path('password_reset/',
-         auth_urls.views.PasswordResetView.as_view(), name='password_reset'),
-    path('password_reset/done/',
-         auth_urls.views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/',
-         auth_urls.views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/',
-         auth_urls.views.PasswordResetCompleteView.as_view(template_name='user/password_reset_done.html'),
-         name='password_reset_complete'),
+    path(
+        'password_change/',
+        auth_urls.views.PasswordChangeView.as_view(template_name='user/password_change.html'),
+        name='password_change'
+    ),
+    path(
+        'password_change/done/',
+        auth_urls.views.PasswordChangeDoneView.as_view(template_name='user/password_change_done.html'),
+        name='password_change_done'
+    ),
+
+    path(
+        'password_reset/',
+        auth_urls.views.PasswordResetView.as_view(),
+        name='password_reset'
+    ),
+    path(
+        'password_reset/done/',
+        auth_urls.views.PasswordResetDoneView.as_view(),
+        name='password_reset_done'
+    ),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_urls.views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'
+    ),
+    path(
+        'reset/done/',
+        auth_urls.views.PasswordResetCompleteView.as_view(template_name='user/password_reset_done.html'),
+        name='password_reset_complete'
+    ),
+
+    path('user/<slug:user_slug>/', UserProfileView.as_view(), name='profile'),
+    path('user/<slug:user_slug>/delete/', UserDeleteView.as_view(), name='delete_user'),
+    path('user/<slug:user_slug>/edit/', UserUpdateView.as_view(), name='update_user'),
 ]

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Djangogramm - Delete user{% endblock %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        <p>Ваш аккаунт будет удален без возможности восстановления. Вы уверены?</p>
+        {{ form }}
+        <button type="submit" class="btn btn-danger btn-lg">Удалить</button>
+        <a href="{% url 'update_user' user_slug=user.slug %}">
+            <button type="reset" class="btn btn-dark btn-lg">Не удалять</button>
+        </a>
+    </form>
+{% endblock %}

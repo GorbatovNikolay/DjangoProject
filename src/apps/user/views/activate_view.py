@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 
 from apps.user.services import ActivationService
@@ -9,5 +10,5 @@ class ActivateView(View):
 
     def get(self, request, uidb64, token):
         if ActivationService.activate_user(request, uidb64, token):
-            return HttpResponse('Регистрация прошла успешно. Теперь вы можете войти.')
+            return render(request, 'user/account_activation_done.html')
         return HttpResponse('Ссылка активации недействительна!')
