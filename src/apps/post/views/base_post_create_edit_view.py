@@ -22,9 +22,6 @@ class BasePostCreateEditView(LoginRequiredMixin, View):
 
     def get(self, request, post_slug=None):
         """Renders a template with either empty or filled forms for 'GET' query."""
-        if self.template_name is None:
-            raise AttributeError('Template name is not defined!')
-
         context = self.get_context_data(request, post_slug)
         return render(request, self.template_name, context)
 
