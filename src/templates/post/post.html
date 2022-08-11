@@ -28,22 +28,39 @@
             </div>
         {% endif %}
     </div>
-    <div class="entry-meta">
-        <ul style="float: left; flex: 50%; padding: 5px;">
-            <li><i class="icon-calendar3"></i> {{ post.creation_date }}</li>
-            <li><a href="#"><i class="icon-user"></i> {{ post.creator.username }}</a></li>
-            <li><i class="icon-like"> 45</i></li>
-        </ul>
-        <ul style="float: right; flex: 50%; padding: 5px;">
-            {% if request.path|length == 1 %}
-                <li><a href="{% url 'single_post' post_slug=post.slug %}">Открыть публикацию</a></li>
-            {% endif %}
-            {% if user == post.creator or user.is_superuser == True %}
-                <li><a href="{% url 'edit_post' post_slug=post.slug %}">Редактировать</a></li>
-                <li><a href="{% url 'delete_post' post_slug=post.slug %}">Удалить</a></li>
-            {% endif %}
-        </ul>
-    </div>
+    <form action="{% url 'like_post' post_slug=post.slug %}?next={{ request.path|urlencode }}"
+          method="POST">{% csrf_token %}
+        <div class="entry-meta">
+
+            <ul style="float: left; flex: 50%; padding: 5px;">
+                <li><i class="icon-calendar3"></i> {{ post.creation_date }}</li>
+                <li><a href="{% url 'profile' user_slug=post.creator.slug %}">
+                    <i class="icon-user"></i> {{ post.creator.username }}</a>
+                </li>
+                <li>
+                    <button type="submit" name="post_slug" value="{{ post.slug }}"
+                            class="btn">
+                        {% if user.pk not in post.get_liked_users %}
+                            <i class="icon-line2-like"></i>
+                        {% else %}
+                            <i class="icon-line2-dislike"></i>
+                        {% endif %}
+                        {{ post.likes.count }}
+                    </button>
+                </li>
+            </ul>
+
+            <ul style="float: right; flex: 50%; padding: 5px;">
+                {% if request.path|length == 1 %}
+                    <li><a href="{% url 'single_post' post_slug=post.slug %}">Открыть публикацию</a></li>
+                {% endif %}
+                {% if user == post.creator or user.is_superuser == True %}
+                    <li><a href="{% url 'edit_post' post_slug=post.slug %}">Редактировать</a></li>
+                    <li><a href="{% url 'delete_post' post_slug=post.slug %}">Удалить</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </form>
     <div class="entry-content">
         <p style="padding: 20px;">{{ post.body }}</p>
     </div>
