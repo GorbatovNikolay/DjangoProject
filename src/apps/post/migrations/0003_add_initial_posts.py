@@ -4,61 +4,61 @@ from django.db import migrations
 
 from apps.post.models import Post, Tag, Photo
 from apps.user.models import User
-from test_data.post import test_post_data
+from initial_data.post_data import post_data
 
 
-def create_test_posts(apps, schema_editor):
+def create_initial_posts(apps, schema_editor):
     # get users
     user1 = User.objects.get(username='dafna')
     user2 = User.objects.get(username='richard')
 
     # create posts
-    user1_post1 = Post(body=test_post_data['post_body'][0], creator=user1)
+    user1_post1 = Post(body=post_data['post_body'][0], creator=user1)
     user1_post1.save()
-    user1_post2 = Post(body=test_post_data['post_body'][1], creator=user1)
+    user1_post2 = Post(body=post_data['post_body'][1], creator=user1)
     user1_post2.save()
-    user2_post1 = Post(body=test_post_data['post_body'][2], creator=user2)
+    user2_post1 = Post(body=post_data['post_body'][2], creator=user2)
     user2_post1.save()
-    user2_post2 = Post(body=test_post_data['post_body'][3], creator=user2)
+    user2_post2 = Post(body=post_data['post_body'][3], creator=user2)
     user2_post2.save()
 
     # add tags
-    for tag_name in test_post_data['tags'][0]:
+    for tag_name in post_data['tags'][0]:
         tag = Tag(tag_name=tag_name, post=user1_post1)
         tag.save()
-    for tag_name in test_post_data['tags'][1]:
+    for tag_name in post_data['tags'][1]:
         tag = Tag(tag_name=tag_name, post=user1_post2)
         tag.save()
-    for tag_name in test_post_data['tags'][2]:
+    for tag_name in post_data['tags'][2]:
         tag = Tag(tag_name=tag_name, post=user2_post1)
         tag.save()
-    for tag_name in test_post_data['tags'][3]:
+    for tag_name in post_data['tags'][3]:
         tag = Tag(tag_name=tag_name, post=user2_post2)
         tag.save()
 
     # add photos
     for index, post in enumerate(Post.objects.all()):
         index += 1
-        photo_file = File(open(f'test_data/post/images/test_photo_{index}.jpeg', 'rb'))
+        photo_file = File(open(f'initial_data/post_data/images/test_photo_{index}.jpeg', 'rb'))
         photo = Photo(image=photo_file, post=post)
         photo.save()
         if index == 4:
             index += 1
-            photo_file = File(open(f'test_data/post/images/test_photo_{index}.jpeg', 'rb'))
+            photo_file = File(open(f'initial_data/post_data/images/test_photo_{index}.jpeg', 'rb'))
             photo = Photo(image=photo_file, post=post)
             photo.save()
 
 
-def revert_create_test_posts(apps, schema_editor):
+def revert_create_initial_posts(apps, schema_editor):
     Post.objects.all().delete()
 
 
 class Migration(migrations.Migration):
     dependencies = [
         ('post', '0002_initial'),
-        ('user', '0002_add_test_users'),
+        ('user', '0002_add_initial_users'),
     ]
 
     operations = [
-        migrations.RunPython(create_test_posts, revert_create_test_posts)
+        migrations.RunPython(create_initial_posts, revert_create_initial_posts)
     ]

@@ -6,7 +6,7 @@ from apps.likes.models import Like
 from apps.user.models import User
 
 
-def create_test_likes(apps, schema_editor):
+def create_initial_likes(apps, schema_editor):
     user1 = User.objects.get(username='dafna')
     user2 = User.objects.get(username='richard')
 
@@ -17,16 +17,16 @@ def create_test_likes(apps, schema_editor):
     like.save()
 
 
-def revert_create_test_likes(apps, schema_editor):
+def revert_create_initial_likes(apps, schema_editor):
     Like.objects.all().delete()
 
 
 class Migration(migrations.Migration):
     dependencies = [
         ('likes', '0003_initial'),
-        ('post', '0003_add_test_posts'),
+        ('post', '0003_add_initial_posts'),
     ]
 
     operations = [
-        migrations.RunPython(create_test_likes, revert_create_test_likes)
+        migrations.RunPython(create_initial_likes, revert_create_initial_likes)
     ]

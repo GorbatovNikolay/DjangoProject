@@ -3,15 +3,15 @@
 from django.db import migrations
 
 from apps.user.models import User
-from test_data.user import test_user_data
+from initial_data.user_data import user_data
 
 
-def create_test_users(apps, schema_editor):
-    for username, email, password in test_user_data:
+def create_initial_users(apps, schema_editor):
+    for username, email, password in user_data:
         User.objects.create_user(username=username, email=email, password=password)
 
 
-def revert_create_test_users(apps, schema_editor):
+def revert_create_initial_users(apps, schema_editor):
     User.objects.last().delete()
     User.objects.last().delete()
 
@@ -22,5 +22,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_test_users, revert_create_test_users)
+        migrations.RunPython(create_initial_users, revert_create_initial_users)
     ]
