@@ -1,4 +1,3 @@
-from django.contrib.sites.requests import RequestSite
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
@@ -12,9 +11,9 @@ class EmailService:
     """Service providing functionality to send a confirmation email."""
 
     @classmethod
-    def write_email_message(cls, request, user_object) -> str:
+    def write_email_message(cls, current_site, user_object) -> str:
         """Writes a message string to use in a confirmation email."""
-        current_site = RequestSite(request).domain
+
         message = render_to_string('user/account_activation_email.html', {
             'username': user_object.username,
             'domain': current_site,
@@ -24,8 +23,8 @@ class EmailService:
         return message
 
     @classmethod
-    def send_confirmation_email(cls, request, user_object) -> None:
-        message = cls.write_email_message(request, user_object)
+    def send_confirmation_email(cls, current_site, user_object) -> None:
+        message = cls.write_email_message(current_site, user_object)
         send_mail(
             'Завершение регистрации',
             message,
