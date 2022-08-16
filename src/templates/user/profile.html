@@ -20,8 +20,10 @@
             <br>
             <h1>Личная информация</h1>
             <p style="font-size: 30px">{{ profile_user.username }}</p>
+            {% if profile_user.first_name and profile_user.last_name %}
             <p style="font-size: 30px"><b>Полное имя:</b> <br>{{ profile_user.first_name }} {{ profile_user.last_name }}
             </p>
+            {% endif %}
             <p style="clear: left;">{{ profile_user.bio }}</p>
             {% if user == profile_user %}
                 <a href="{% url 'update_user' user_slug=profile_user.slug %}">
