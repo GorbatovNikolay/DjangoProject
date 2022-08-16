@@ -13,8 +13,8 @@ def create_initial_likes(apps, schema_editor):
 
     likes = []
     for post in user2.posts.all():
-        likes.append(Like(post_id=post.id, user_id=user1.id, _order=0))
-    likes.append(Like(post_id=user1.posts.last().id, user_id=user2.id, _order=0))
+        likes.append(Like(post=post, user=user1, _order=0))
+    likes.append(Like(post=user1.posts.last(), user=user2, _order=0))
     Like.objects.bulk_create(likes)
 
 

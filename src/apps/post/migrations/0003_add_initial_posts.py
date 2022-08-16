@@ -17,27 +17,27 @@ def create_initial_posts(apps, schema_editor):
     user2 = User.objects.get(username='richard')
 
     Post.objects.bulk_create([
-        Post(body=post_data['post_body'][0], creator_id=user1.id, _order=0),
-        Post(body=post_data['post_body'][1], creator_id=user1.id, _order=1),
-        Post(body=post_data['post_body'][2], creator_id=user2.id, _order=0),
-        Post(body=post_data['post_body'][3], creator_id=user2.id, _order=1)
+        Post(body=post_data['post_body'][0], creator=user1, _order=0),
+        Post(body=post_data['post_body'][1], creator=user1, _order=1),
+        Post(body=post_data['post_body'][2], creator=user2, _order=0),
+        Post(body=post_data['post_body'][3], creator=user2, _order=1)
     ])
 
     tags = []
     for index, post in enumerate(Post.objects.all()):
         for i, tag_name in enumerate(post_data['tags'][index]):
-            tags.append(Tag(tag_name=tag_name, post_id=post.id, _order=i))
+            tags.append(Tag(tag_name=tag_name, post=post, _order=i))
     Tag.objects.bulk_create(tags)
 
     photos = []
     for index, post in enumerate(Post.objects.all()):
         index += 1
         photo_file = File(open(f'initial_data/post_data/images/test_photo_{index}.jpeg', 'rb'))
-        photos.append(Photo(image=photo_file, post_id=post.id, _order=0))
+        photos.append(Photo(image=photo_file, post=post, _order=0))
         if index == 4:
             index += 1
             photo_file = File(open(f'initial_data/post_data/images/test_photo_{index}.jpeg', 'rb'))
-            photos.append(Photo(image=photo_file, post_id=post.id, _order=1))
+            photos.append(Photo(image=photo_file, post=post, _order=1))
     Photo.objects.bulk_create(photos)
 
 
