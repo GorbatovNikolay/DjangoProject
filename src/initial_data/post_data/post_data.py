@@ -24,8 +24,8 @@ post_data = {
     ),
     'tags': (
         ('nature', 'water', 'sun', 'sea', 'beach'),
-        ('food', 'meat'),
         ('football', 'soccer', 'matchday'),
+        ('food', 'meat'),
         (),
     )
 }
