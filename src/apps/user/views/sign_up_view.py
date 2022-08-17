@@ -1,3 +1,4 @@
+from django.contrib.sites.requests import RequestSite
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -13,8 +14,7 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         """If the form is valid, save the associated model and send confirmation email."""
-        self.object = form.save(commit=False)
-        self.object.is_active = False
-        self.object.save()
-        EmailService.send_confirmation_email(self.request, self.object)
+        self.object = form.save()
+        current_site = RequestSite(self.request).domain
+        EmailService.send_confirmation_email(current_site, self.object)
         return super().form_valid(form)
