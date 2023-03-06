@@ -1,11 +1,1 @@
-# DjangoGrammProject
-
-
-
-## Description
-
-## Installation
-
-## Usage
-
-## License
+# Django Instagram-like Project
