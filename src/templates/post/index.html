@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Djangogramm - Home{% endblock %}
+
+{% block content %}
+    {% load thumbnail %}
+    {% for post in latest %}
+        <div id="posts" class="row grid-container gutter-30">
+            <div class="entry col-12">
+                {% include 'post/post.html' with post=post %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
