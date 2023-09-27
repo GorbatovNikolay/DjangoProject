@@ -14,7 +14,7 @@ class Photo(models.Model):
         upload_to=FilePathProcessor.get_photo_path,
         resize_source=dict(
             quality=95,
-            size=(1290, 2048),
+            size=(1200, 675),
             crop='scale'
         )
     )

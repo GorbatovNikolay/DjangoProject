@@ -16,7 +16,15 @@ class ActivationService:
             user = User.objects.get(pk=uid)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
-        if user is not None and account_activation_token.check_token(user, token):
+
+        user_data = {
+            'username': user.username,
+            'pk': user.pk,
+            'email': user.email,
+            'is_active': user.is_active
+        }
+
+        if user is not None and account_activation_token.check_token(user_data, token):
             user.is_active = True
             user.save()
             return True

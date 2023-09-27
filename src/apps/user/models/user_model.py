@@ -23,7 +23,7 @@ class User(AbstractUser):
         ),
         resize_source=dict(
             quality=95,
-            size=(2000, 2000),
+            size=(400, 400),
             crop='scale'
         )
     )
